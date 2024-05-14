@@ -1,0 +1,11 @@
+{% include 'partials/head.html' %}
+    <title>{% block titulo %}{% endblock %} Panos de Prato</title>
+</head>
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/search.html' %}
+    <main class="main-content-container">
+        {% block conteudo %}  {% endblock %}
+    </main>
+</body>
+</html>
