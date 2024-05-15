@@ -1,42 +1,46 @@
 <div class="cloth cloth-list-item">
     <div class="cloth-cover">
-        <img src="https://dummyimage.com/640x360/269fe6" alt="Temprário">
+        <a href="{% url 'dish_cloth-cloth' cloth.id %}">
+            <img src="{{ cloth.cover.url}}" alt="Imagem do pano de prato">
+        </a>
     </div>
     <div class="cloth-title-container">
-        <h2 class="cloth-title">Título do Pano de Prato</h2>
+        <a href="{% url 'dish_cloth-cloth' cloth.id %}">
+            <h2 class="cloth-title">{{ cloth.title }}</h2>
+        </a>
     </div>
     <div class="cloth-author">
         <span class="cloth-author-item">
             <i class="fas fa-user"></i>
-            Rachel Moreira de Moraes
+            {{ cloth.author.first_name }} {{ cloth.author.last_name }}
         </span>
         <hr>
         <span class="cloth-author-item">
             <i class="fas fa-calendar-alt"></i>
-            13/05/2024 às 19:58
+            {{ cloth.created_at|date:"d/m/Y" }} às {{ cloth.created_at|date:"H:i" }}
         </span>
         <hr>
         <span class="cloth-author-item">
             <a href="cloth/category/cow">
                 <i class="fas fa-layer-group"></i>
-                Vacas
+                {{ cloth.category.name }}
             </a>
         </span>
     </div>
     <div class="cloth-content">
-        <p>A referência são os animais rurais simbolizado por uma vaquinha.</p>
+        <p>{{ cloth.description }}</p>
     </div>
     <div class="cloth-meta-container">
         <div class="cloth-meta money-value">
             <h3 class="cloth-meta-title"><i class="fa-solid fa-dollar-sign"></i></h3>
             <div class="cloth-meta-text">
-                R$ 15,50
+                R$ {{ cloth.costs }} {{ cloth.costs_unit }}
             </div>
         </div>
         <div class="cloth-meta quantity">
             <h3 class="cloth-meta-title"><i class="fa-solid fa-receipt"></i></h3>
             <div class="cloth-meta-text">
-                Restam: 9
+                Restam: {{ cloth.quatity }} {{ cloth.quantity_unit }}
             </div>
         </div>
     </div>

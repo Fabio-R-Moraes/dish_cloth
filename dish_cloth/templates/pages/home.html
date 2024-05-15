@@ -2,13 +2,8 @@
 {% block titulo %}Home |{% endblock %}
 {% block conteudo %}
     <div class="main-content main-content-list container">
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
-        {% include 'partials/cloth.html' %}
+        {% for cloth in cloths %}
+            {% include 'partials/cloth.html' %}
+        {% endfor %}
     </div>
 {% endblock %}
