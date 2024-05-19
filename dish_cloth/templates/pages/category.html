@@ -4,10 +4,6 @@
     <div class="main-content main-content-list container">
         {% for cloth in cloths %}
             {% include 'partials/cloth.html' %}
-        {% empty %}
-            <div class="center m-y">
-                <h1>Não há panos de prato para mostrar</h1>
-            </div>
         {% endfor %}
     </div>
 {% endblock %}

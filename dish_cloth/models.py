@@ -20,7 +20,8 @@ class Dish_Cloths(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     cloth_image = models.ImageField(upload_to='dish_cloth/cloth_images/%d/%m/%Y')
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True
+        Category, on_delete=models.SET_NULL, null=True, blank=True,
+        default=None
     )
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True
