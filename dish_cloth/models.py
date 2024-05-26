@@ -18,7 +18,7 @@ class Dish_Cloths(models.Model):
     price_unit = models.CharField(max_length=20)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    cloth_image = models.ImageField(upload_to='dish_cloth/cloth_images/%d/%m/%Y')
+    cloth_image = models.ImageField(upload_to='dish_cloth/cloth_images/%d/%m/%Y', blank=True, default='')
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True,
         default=None

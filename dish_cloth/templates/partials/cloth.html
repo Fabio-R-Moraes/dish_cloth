@@ -1,11 +1,11 @@
 <div class="cloth cloth-list-item">
     <div class="cloth-cover">
-        <a href="{% url 'dish_cloth-cloth' cloth.id %}">
+        <a href="{% url 'dish_cloth:cloth' cloth.id %}">
             <img src="{{ cloth.cloth_image.url}}" alt="Imagem do pano de prato">
         </a>
     </div>
     <div class="cloth-title-container">
-        <a href="{% url 'dish_cloth-cloth' cloth.id %}">
+        <a href="{% url 'dish_cloth:cloth' cloth.id %}">
             <h2 class="cloth-title">{{ cloth.title }}</h2>
         </a>
     </div>
@@ -30,7 +30,7 @@
         <hr>
         {% if cloth.category is not None %}
             <span class="cloth-author-item">
-                <a href="{% url 'category' cloth.category.id %}">
+                <a href="{% url 'dish_cloth:category' cloth.category.id %}">
                     <i class="fas fa-layer-group"></i>
                     {{ cloth.category.name }}
                 </a>
