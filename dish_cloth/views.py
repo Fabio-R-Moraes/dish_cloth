@@ -2,6 +2,7 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from utils.dish_cloth.fabrica import make_cloth
 from .models import Dish_Cloths, Category
 from django.http import Http404
+from django.db.models import Q
 
 def home(request):
     dishes_cloths = Dish_Cloths.objects.filter(is_published=True).order_by('-id')
@@ -28,10 +29,21 @@ def category(request, category_id):
     })
 
 def search(request):
-    search_term = request.GET.get('q')
+    search_term = request.GET.get('q', '').strip()
 
     if not search_term:
         raise Http404()
     
-    return render(request, 'pages/search.html')
+    cloths = Dish_Cloths.objects.filter(
+        Q(
+            Q(title__icontains=search_term) | 
+            Q(description__icontains=search_term),
+        ),
+        is_published=True,
+    ).order_by('-title')
+
+    return render(request, 'pages/search.html', {
+        'page_title': f'Pesquisando por "{search_term}" |',
+        'cloths': cloths,
+    })
     
