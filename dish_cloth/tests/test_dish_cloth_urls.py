@@ -13,4 +13,7 @@ class ClothsURLsTest(TestCase):
     def test_cloths_cloth_url_is_correct(self):
         url = reverse('dish_cloth:cloth', kwargs={'id':1})
         self.assertEqual(url, '/dish_cloth/1/')
-        
+
+    def test_cloths_search_url_is_correct(self):
+        url = reverse('dish_cloth:search')
+        self.assertEqual(url, '/dish_cloth/search/')

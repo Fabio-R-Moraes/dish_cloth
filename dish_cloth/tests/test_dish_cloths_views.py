@@ -78,3 +78,17 @@ class ClothsViewsTest(ClothTestBase):
         response_content = response.content.decode('utf-8')
 
         self.assertIsNot(title_needle, response_content)
+
+    def test_cloths_search_view_is_correct(self):
+        view = resolve(reverse('dish_cloth:search'))
+        self.assertIs(view.func, views.search)
+
+    def test_cloths_search_load_correct_template(self):
+        response = self.client.get(reverse('dish_cloth:search') + '?q=teste')
+        self.assertTemplateUsed(response, 'pages/search.html')
+
+    def test_cloths_search_no_term_get_404(self):
+        url = reverse('dish_cloth:search')
+        print(f'Resposta: {url}')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)

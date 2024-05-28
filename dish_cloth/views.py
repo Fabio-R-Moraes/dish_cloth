@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from utils.dish_cloth.fabrica import make_cloth
 from .models import Dish_Cloths, Category
+from django.http import Http404
 
 def home(request):
     dishes_cloths = Dish_Cloths.objects.filter(is_published=True).order_by('-id')
@@ -25,4 +26,12 @@ def category(request, category_id):
         'cloths': dishes_cloths,
         'title': f'{dishes_cloths[0].category.name} - Categoria |'
     })
+
+def search(request):
+    search_term = request.GET.get('q')
+
+    if not search_term:
+        raise Http404()
+    
+    return render(request, 'pages/search.html')
     

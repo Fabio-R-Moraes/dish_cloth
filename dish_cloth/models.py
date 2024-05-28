@@ -9,7 +9,7 @@ class Category(models.Model):
 
 class Dish_Cloths(models.Model):
     title = models.CharField(max_length=65)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     description = models.CharField(max_length=120)
     is_published = models.BooleanField(default=False)
     quantity = models.IntegerField()

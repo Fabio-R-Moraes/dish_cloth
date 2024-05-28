@@ -47,11 +47,13 @@ class ClothTestBase(TestCase):
         if author_data is None:
             author_data = {}
 
+        new_number = random.randint(0,100)
+
         return Dish_Cloths.objects.create(
             category = self.make_category(**category_data, name='riachos'),
             author = self.make_author(**author_data),
             title = title,
-            slug = slug,
+            slug = slug + str(new_number),
             description = description,
             is_published=is_published,
             quantity = quantity,
