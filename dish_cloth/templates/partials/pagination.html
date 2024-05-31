@@ -1,0 +1,21 @@
+{% if cloths.has_other_pages %}
+<div class="container pagination">
+    <div class="pagination-content">
+        {% if page_range.first_page_out_of_range %}
+            <a href="?page=1{{ aditional_url_query }}" class="page-link page-item">1</a>
+            <span class="page-item">...</span>
+        {% endif %}
+        {% for page in page_range.pagination %}
+            {% if page_range.actual_page == page %}
+                <a href="?page={{ page }}{{ aditional_url_query }}" class="page-link page-item actual-page">{{ page }}</a>
+            {% else %}
+                <a href="?page={{ page }}{{ aditional_url_query }}" class="page-link page-item">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_range.last_page_out_of_range %}
+            <a href="?page={{ page_range.page_total }}{{ aditional_url_query }}" class="page-link page-item">{{ page_range.page_total }}</a>
+            <span class="page-item">...</span>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

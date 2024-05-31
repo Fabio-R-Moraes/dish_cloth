@@ -3,11 +3,17 @@ from utils.dish_cloth.fabrica import make_cloth
 from .models import Dish_Cloths, Category
 from django.http import Http404
 from django.db.models import Q
+from utils.paginacao import make_pagination
+import os
+
+PER_PAGE = os.environ.get('CLOTHS_PER_PAGE')
 
 def home(request):
     dishes_cloths = Dish_Cloths.objects.filter(is_published=True).order_by('-id')
+    pagina_objeto, page_range = make_pagination(request, dishes_cloths, PER_PAGE)
     return render(request, 'pages/home.html', context={
-        'cloths': dishes_cloths,
+        'cloths': pagina_objeto,
+        'page_range': page_range,
         'title': 'Home |'
     })
 
@@ -22,9 +28,12 @@ def category(request, category_id):
         category__id=category_id,
         is_published=True
         ).order_by('-id'))
+    
+    pagina_objeto, page_range = make_pagination(request, dishes_cloths, PER_PAGE)
 
     return render(request, 'pages/category.html', context={
-        'cloths': dishes_cloths,
+        'cloths': pagina_objeto,
+        'page_range': page_range,
         'title': f'{dishes_cloths[0].category.name} - Categoria |'
     })
 
@@ -42,8 +51,11 @@ def search(request):
         is_published=True,
     ).order_by('-title')
 
+    pagina_objeto, page_range = make_pagination(request, cloths, PER_PAGE)
+
     return render(request, 'pages/search.html', {
         'page_title': f'Pesquisando por "{search_term}" |',
-        'cloths': cloths,
+        'cloths': pagina_objeto,
+        'page_range': page_range,
+        'aditional_url_query': f'&q={search_term}',
     })
-    
