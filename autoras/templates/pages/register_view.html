@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+{% block titulo %}{{title}}{% endblock %}
+{% block conteudo %}
+<div class="main-content center container">
+    <h2>Registro</h2>
+</div>
+<div class="main-content container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-content form-content-grid">
+            {% for campo in form %}
+                <div class="form-group">
+                    <label for="{{campo.id_for_label}}">{{campo.label}}</label>
+                    {{campo}}
+                    {% if campo.help_text %}
+                        <p class="help_text">{{campo.help_text}}</p>
+                    {% endif %}
+                    {{campo.errors}}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <button type="submit">Enviar</button>
+        </div>
+    </form>
+</div>
+{% endblock conteudo %}
