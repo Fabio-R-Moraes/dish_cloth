@@ -1,6 +1,7 @@
 from django.urls import reverse, resolve
 from dish_cloth import views
 from .test_base import ClothTestBase, Dish_Cloths
+from unittest.mock import patch
 
 class ClothsHomeViewsTests(ClothTestBase):
     #Testes para a página home
@@ -39,3 +40,20 @@ class ClothsHomeViewsTests(ClothTestBase):
 
         #Foi gerado apenas um pano de prato
         self.assertEqual(len(response_context_cloth), 1)
+
+    @patch('dish_cloth.views.PER_PAGE', new=4)
+    def test_cloths_home_is_paginated(self):
+        #Precisam de vários panos de prato para fazer o teste
+        for i in range(18):
+            kwargs = {'author_data': {
+                'username': f'Fabio_{i}'},
+                'slug': f'Teste de paginacao_{i}'}
+            self.make_cloth(**kwargs)
+
+        response = self.client.get(reverse('dish_cloth:home'))
+        response_context_cloth = response.context['cloths']
+        pagination = response_context_cloth.paginator
+
+        self.assertEqual(pagination.num_pages, 5)
+        self.assertEqual(len(pagination.get_page(1)), 4)
+        self.assertEqual(len(pagination.get_page(2)), 4)
